@@ -22,7 +22,7 @@ function LangSelect(props) {
     <div className="bg-white shadow px-2 py-2 rounded-lg">
       {
         langData.map((item,idx) => (
-          <button className="flex justify-between items-center w-full mt-2 grayButton rounded-md p-2" key={idx} onClick={()=>onSelectLanguage(idx)}>
+          <button data-role="language-variant" className="flex justify-between items-center w-full mt-2 grayButton rounded-md p-2" key={idx} onClick={()=>onSelectLanguage(idx)}>
             <span>{item.lang}</span>
             <ReactCountryFlag
                className="rounded-full "
@@ -45,7 +45,7 @@ function LangSelect(props) {
   return (
     <Dropdown overlay={menu} placement="bottomLeft" className={`${props.className} `}>
        
-      <button className="flex justify-center items-center ">
+      <button data-role='language-select' className="flex justify-center items-center ">
         <span>{langData[sel].lang}</span>
         <ReactCountryFlag
            className="rounded-full ml-2"

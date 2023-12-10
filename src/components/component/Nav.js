@@ -131,7 +131,7 @@ function Nav(props) {
           (userData==undefined||userData=='')?
           <>
             <Link to="/login"><button className="mx-4 xl:mx-8">{t('Log In')}</button></Link>
-            <button className="mr-4 xl:mr-8 myButton text-white myBule px-3 xl:px-6 " onClick={goToRegister}>{t('Register')} </button>
+            <button data-role="register-button" className="mr-4 xl:mr-8 myButton text-white myBule px-3 xl:px-6 " onClick={goToRegister}>{t('Register')} </button>
           </>
           :
           <>

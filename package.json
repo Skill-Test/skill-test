@@ -43,7 +43,11 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "init-project": "yarn install && cd backend && yarn install"
+    "init-project": "yarn install && cd backend && yarn install",
+    "e2e": "start-server-and-test dev http://localhost:3000 \"cypress open --e2e\"",
+    "e2e:headless": "start-server-and-test dev http://localhost:3000 \"cypress run --e2e\"",
+    "component": "cypress open --component",
+    "component:headless": "cypress run --component"
   },
   "eslintConfig": {
     "extends": [
@@ -65,7 +69,9 @@
   },
   "devDependencies": {
     "autoprefixer": "^9.8.8",
+    "cypress": "^13.6.1",
     "postcss": "^7.0.39",
+    "start-server-and-test": "^2.0.3",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17"
   }
 }
