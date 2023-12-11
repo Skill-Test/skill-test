@@ -1,0 +1,1 @@
+mysql -p -u root mgldefi  < ./mgldefi.sql

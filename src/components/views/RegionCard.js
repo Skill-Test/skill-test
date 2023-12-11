@@ -32,7 +32,7 @@ function RegionCard(props) {
               />{props.country.title.length>20?props.country.title.substring(0,20)+"...":props.country.title}
             </button>
             <p className="text-sm lg:text-md xl:text-lg  py-2 lg:py-4 text-gray-600">{comment2}</p>
-            <button  onClick={props.accountStep} className="w-full bg-gray-800 text-sm lg:text-md xl:text-lg font-bold text-white  rounded-lg py-2 lg:py-4">{t("Confirm")}</button>
+            <button  onClick={props.accountStep} data-role="confirm" className="w-full bg-gray-800 text-sm lg:text-md xl:text-lg font-bold text-white  rounded-lg py-2 lg:py-4">{t("Confirm")}</button>
          
         </RegCard>
       

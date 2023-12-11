@@ -38,9 +38,10 @@
     "web3": "^1.6.1"
   },
   "scripts": {
-    "client": "craco  start",
+    "client": "craco start",
     "server": "cd backend && npm start",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server:dev": "cd backend && npm run dev",
+    "dev": "concurrently \"npm run server:dev\" \"npm run client\"",
     "test": "craco test",
     "eject": "react-scripts eject",
     "init-project": "yarn install && cd backend && yarn install",
