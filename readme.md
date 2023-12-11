@@ -165,7 +165,7 @@ I've set up cypress for integration test and covered a few business-procedures:
 
 On each input field should be added valuable name such as email, address, phone etc... This helps browsers to provide autofill and for developers - to receive better-labelled data on form submit
 
-## Email service
+### Email service
 
 ![](./readme/5.png)
 
@@ -175,7 +175,7 @@ In .env file there is a gmail provider. For testing purposes, better to redirect
 
 ![](./readme/10.png)
 
-# Store secrets in another way
+### Store secrets in another way
 
 ![](./readme/7.png)
 
@@ -183,8 +183,12 @@ My approach - in ci/cd secrets sections (for example, github actions has user se
 
 ![](./readme/8.png)
 
-# Fix console warnings
+### Fix console warnings
 
 Of different types, for example:
 
 ![](./readme/9.png)
+
+### Remove comments and unused code
+
+![](./readme/11.png)

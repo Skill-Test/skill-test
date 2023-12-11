@@ -1,22 +1,15 @@
-import { Button ,Card,Input,Row, Col,Checkbox,Form } from 'antd';
-import React, { useState, useEffect,useContext } from 'react';
-import { Link } from "react-router-dom";
-import axios from "axios";
-import { List, message, Avatar, Skeleton, Divider } from 'antd';
-import { 
-  MailOutlined ,
-  SafetyOutlined,
+import {
   LockOutlined,
-  TeamOutlined ,
-  EyeTwoTone,
-  EyeInvisibleOutlined} from '@ant-design/icons';
+  MailOutlined
+} from '@ant-design/icons';
+import { Form, Input } from 'antd';
+import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { UserContext } from '../providers/UserProvider';
-import RegCard from '../component/RegCard';
-import setAuthToken from "../../utils/setAuthToken";
-import openNotification from "../helpers/notification";
-import {SERVER_URL} from "../../constants/env";
+import { Link } from "react-router-dom";
+import { SERVER_URL } from "../../constants/env";
 import Wallet from "../../utils/wallet";
+import RegCard from '../component/RegCard';
+import { UserContext } from '../providers/UserProvider';
 const wallet = new Wallet();
 function Register(props) {
   const userData = useContext(UserContext);
@@ -120,7 +113,7 @@ function Register(props) {
           
             {/*<span className={`${message.style} text-lg`}>{message.val==1?<FcOk className="inline mr-2"/>:message.val==0?<FcCancel className="inline mr-2"/>:null}{message.data}</span>*/}
             <Form.Item className="mt-2">
-              <button  onClick={login} type="submit" className="w-full bg-gray-800 text-md font-bold text-white  rounded-lg py-2">
+              <button onClick={login} type="submit" className="w-full bg-gray-800 text-md font-bold text-white  rounded-lg py-2">
                {t("Log In")}
               </button>
             </Form.Item>

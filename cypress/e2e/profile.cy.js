@@ -19,24 +19,22 @@ describe('Navigation', () => {
 
     cy.get("button[data-role='language-variant']").first().click()
 
+    cy.visit('http://localhost:3000/login')
     // go to register
-    cy.get("button[data-role='register-button']").first().click()
 
     cy.wait(1000)
 
-    cy.get("div.ant-card-body").get("button[data-role='confirm']").first().click()
-
-    const email = faker.internet.email()
+    const email = 't@t.com'
     const password = "P@$$w0rd"
 
     cy.get("input#basic_email").type(email)
-    cy.get("input#basic_Verification").type("1234")
-
-    cy.get("a[data-role='send-verification']").first().click()
     cy.get("input#basic_password").type(password)
-    cy.get("input#basic_confirm").type(password)
 
-    cy.get("input#basic_check").first().click()
+    cy.wait(1000)
+
+    cy.get("button[type='submit']").click({ force: true })
+
+    cy.url().should('not.contain', 'login')
   })
 })
 
