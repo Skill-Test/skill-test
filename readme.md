@@ -8,6 +8,10 @@ Issue. User can not register in account. And can not login to profile page.
 
 User is able to register, login and get access to his profile page
 
+## Proof of work
+
+![](./readme/pow.gif)
+
 ## Found bugs
 
 ### package.json
