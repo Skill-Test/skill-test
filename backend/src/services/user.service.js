@@ -69,10 +69,20 @@ class UserService {
         }
         let verificationCode = this.makeRandomString(4);
 
-        const subject = i18n.__({phrase: "MGL Exchange: Email Verification", locale: locale})
-        const body = i18n.__({phrase: "Your Email verification code is %s", locale: locale}, verificationCode);
-        emailService.deliverEmail(email, subject, body)
-        
+        let messageId = null
+        try {
+            const subject = i18n.__({ phrase: "MGL Exchange: Email Verification", locale: locale })
+            const body = i18n.__({ phrase: "Your Email verification code is %s", locale: locale }, verificationCode)
+
+            messageId = emailService.deliverEmail(email, subject, body)
+        } catch (error) {
+            return { response: false, message: "An error was caused during the Email Verification Code generation.", data: null }
+        }
+
+        if (messageId === null) {
+            return { response: false, message: "An error was caused during the Email Verification Code generation.", data: null }
+        }
+
         let prev = await EmailVerifyModel.findOne({email:email});
         if (prev) {
             let result = await EmailVerifyModel.update({verify_code:verificationCode}, prev.id);
@@ -92,7 +102,7 @@ class UserService {
             }
         }
         console.log(verificationCode)
-        return {response: true, message: "Success. Email Verification Code was send to your Email address.", data:null}
+        return {response: true, message: "Success. Email Verification Code was sent to your Email address.", data:null}
     }
 
     static async getAllUsers() {

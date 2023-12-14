@@ -9,29 +9,41 @@ i18n.configure({
 module.exports = {
     deliverEmail: function (dest, subject, body) {
         var transport = nodemailer.createTransport({
-            service: process.env.EMAIL_SERVICE,
-            //host: process.env.EMAIL_HOST,
-            //port: Number(process.env.EMAIL_PORT),
+            host: process.env.SMTP_HOST,
+            port: Number(process.env.SMTP_PORT),
             auth: {
-                //user: process.env.EMAIL_USER,
-                user: process.env.EMAIL,
-                pass: process.env.EMAIL_PWD
+                user: process.env.SMTP_AUTH_USER,
+                pass: process.env.SMTP_AUTH_PASS
             }
         });
-    
+
         var mailOptions = {
-            from: process.env.EMAIL,
+            from: process.env.SMTP_SENDER_EMAIL_ADDRESS,
             to: dest,
             subject: subject,
             text: body
         };
-    
-        transport.sendMail(mailOptions, function(error, info){
-            if (error) {
-                console.log(error);
-            } else {
-                console.log('Email sent: ' + info.response);
-            }
-        });
-    }   
+
+        function sendEmail() {
+            return new Promise((resolve, reject) => {
+                let messageId = null
+                transport.sendMail(mailOptions, function(error, info){
+                    if (error) {
+                        console.log(error)
+                        reject(error)
+                    } else {
+                        console.log('Email sent: ' + info.response)
+                        messageId = info.messageId
+                        resolveContent(messageId)
+                    }
+                })
+            })
+        }
+
+        sendEmail().then(messageId => {
+            return messageId
+        }).catch(error => {
+            return null
+        })
+    }
 }
