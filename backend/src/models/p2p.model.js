@@ -1,8 +1,7 @@
 /* learn more: https://github.com/testing-library/jest-dom // @testing-library/jest-dom library provides a set of custom jest matchers that you can use to extend jest. These will make your tests more declarative, clear to read and to maintain.*/
-
 const query = require('../db/db-connection');
 const { multipleColumnSet } = require('../utils/common.utils');
-const Role = require('../utils/userRoles.utils');
+const winston = require('../utils/logger.js');
 const HttpException = require('../utils/HttpException.utils');
 
 class P2PModel {
@@ -20,6 +19,7 @@ class P2PModel {
             sql += ` WHERE ${columnSet}`;
             return await query(sql, [...values]);
         } catch(error) {
+            winston.error(`[P2PModel - find] Error: ${error.message}`);
             return {error:error.sqlMessage}
         }
     }
@@ -28,13 +28,12 @@ class P2PModel {
         try {
             const { columnSet, values } = multipleColumnSet(params)
             
-            const sql = `SELECT * FROM ${this.tableName}
-            WHERE ${columnSet}`;
+            const sql = `SELECT * FROM ${this.tableName} WHERE ${columnSet}`;
             const result = await query(sql, [...values]);
 
-            // return back the first row (user)
             return result[0];
         } catch(error) {
+            winston.error(`[P2PModel - findOne] Error: ${error.message}`);
             return {error:error.sqlMessage}
         }
     }
@@ -48,6 +47,7 @@ class P2PModel {
 
             return affectedRows;
         } catch (error) {
+            winston.error(`[P2PModel - create] Error: ${error.message}`);
             return {error:error.sqlMessage}
         }
     }
@@ -62,6 +62,7 @@ class P2PModel {
 
             return result;
         } catch(error) {
+            winston.error(`[P2PModel - update] Error: ${error.message}`);
             return {error:error.sqlMessage}
         }
     }
@@ -70,13 +71,13 @@ class P2PModel {
         try {
             const { columnSet, values } = multipleColumnSet(params)
             
-            const sql = `DELETE FROM ${this.tableName}
-            WHERE ${columnSet}`;
+            const sql = `DELETE FROM ${this.tableName} WHERE ${columnSet}`;
             const result = await query(sql, [...values]);
             const affectedRows = result ? result.affectedRows : 0;
 
             return affectedRows;
         } catch (error) {
+            winston.error(`[P2PModel - delete] Error: ${error.message}`);
             return {error:error.sqlMessage}
         }
     }
