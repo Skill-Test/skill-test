@@ -20,7 +20,7 @@ class IEOModel {
         } catch (error) {
              // Handle error and register in Winston
             winston.error(`[IEOModel - find] Error: ${error.message}`);
-            throw new HttpException(500, 'Internal Server Error');
+            return {error:error.sqlMessage}
         }
     }
 
@@ -39,7 +39,7 @@ class IEOModel {
         } catch (error) {
              // Handle error and register in Winston
             winston.error(`[IEOModel - findOne] Error: ${error.message}`);
-            throw new HttpException(500, 'Internal Server Error');
+            return {error:error.sqlMessage}
         }
     }
 
@@ -70,7 +70,7 @@ class IEOModel {
         } catch (error) {
              // Handle error and register in Winston
             winston.error(`[IEOModel - create] Error: ${error.message}`);
-            throw new HttpException(500, 'Internal Server Error');
+            return {error:error.sqlMessage}
         }
     }
 
@@ -85,7 +85,7 @@ class IEOModel {
         } catch (error) {
              // Handle error and register in Winston
             winston.error(`[IEOModel - update] Error: ${error.message}`);
-            throw new HttpException(500, 'Internal Server Error');
+            return {error:error.sqlMessage}
         }
     }
 
@@ -101,7 +101,7 @@ class IEOModel {
         } catch (error) {
              // Handle error and register in Winston
             winston.error(`[IEOModel - delete] Error: ${error.message}`);
-            throw new HttpException(500, 'Internal Server Error');
+            return {error:error.sqlMessage}
         }
     }
 }
