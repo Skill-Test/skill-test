@@ -25,7 +25,7 @@ class EmailVerifyModel {
             // Handle error and register in Winston
             winston.error(`[emailVerifymodel - findOne] Error: ${error.message}`);
             // Throw an exception with a descriptive message on error
-            throw new HttpException(500, 'Error fetching data from the database', error);
+            return {error:error.sqlMessage}
         }
     }
 
@@ -40,8 +40,7 @@ class EmailVerifyModel {
             return affectedRows;
         } catch (error) {
             winston.error(`[emailVerifymodel - create] Error: ${error.message}`);
-            // Throw an exception with a descriptive message on error
-            throw new HttpException(500, 'Error creating a new record', error);
+            return {error:error.sqlMessage}
         }
     }
 
@@ -57,8 +56,7 @@ class EmailVerifyModel {
         } catch (error) {
             // Throw an exception with a descriptive message on error
             winston.error(`[emailVerifymodel - update] Error: ${error.message}`);
-            // Throw an exception with a descriptive message on error
-            throw new HttpException(500, 'Error updating the record', error);
+            return {error:error.sqlMessage}
         }
     }
 
@@ -77,8 +75,7 @@ class EmailVerifyModel {
         } catch (error) {
             // Throw an exception with a descriptive message on error
             winston.error(`[emailVerifymodel - delete] Error: ${error.message}`);
-            // Throw an exception with a descriptive message on error
-            throw new HttpException(500, 'Error deleting the record', error);
+            return {error:error.sqlMessage}
         }
     }
 }
