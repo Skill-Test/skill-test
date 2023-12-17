@@ -1,5 +1,6 @@
 const IEOModel = require("../models/ieo.model");
 const { validationResult } = require('express-validator');
+const winston = require('../utils/logger.utils');
 class IEOService {
     constructor() {
 
@@ -34,6 +35,7 @@ class IEOService {
             }
             return {response: true, message:"Success!", data: null}
         } catch (error) {
+            winston.error(`[IEOService - createIEO] Error: ${error.message}`);
             return {response:false, message:error, data:null}
         }
     }
@@ -71,6 +73,7 @@ class IEOService {
             }
             return {response:true, message:"Success", data:null};
         } catch (error) {
+            winston.error(`[IEOService - updateIEO] Error: ${error.message}`);
             return {response:false, message:error, data:null};
         }
     }
@@ -83,6 +86,7 @@ class IEOService {
             }
             return {response:true, message:"Success", data:result};
         } catch (error) {
+            winston.error(`[IEOService - getAllIEO] Error: ${error.message}`);
             return {response:false, message:error, data:null};
         }
     }
@@ -95,6 +99,7 @@ class IEOService {
             }
             return {response:true, message:"Success", data:result};
         } catch (error) {
+            winston.error(`[IEOService - getOneIEO] Error: ${error.message}`);
             return {response:false, message:error, data:null}
         }
     }
@@ -111,6 +116,7 @@ class IEOService {
                 return {response: false, message:"That IEO does not exist.", data:null};
             }
         } catch (error) {
+            winston.error(`[IEOService - deleteIEO] Error: ${error.message}`);
             return {response:false, message:error.message, data:null};
         }
     }
