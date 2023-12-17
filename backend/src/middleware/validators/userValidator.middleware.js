@@ -71,10 +71,9 @@ exports.createUserSchema = [
             next()
         },
     body('invite_code')
-        .exists()
-        .withMessage('invite_code is required')
+        .optional()
         .isNumeric()
-        .withMessage('Email verification code must contain numeric characters'),
+        .withMessage('The invite code must contain numeric characters'),
         function(req,res,next) { 
             var errorValidation = validationResult(req);
             if ( errorValidation.errors.length !== 0 ) {
@@ -153,8 +152,7 @@ exports.updateUserSchema = [
             next()
         },
     body('invite_code')
-        .exists()
-        .withMessage('invite_code is required')
+        .optional()
         .isNumeric()
         .withMessage('Email verification code must contain numeric characters'),
         function(req,res,next) { 
