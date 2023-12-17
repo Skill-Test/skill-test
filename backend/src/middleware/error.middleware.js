@@ -1,26 +1,26 @@
+const winston = require('../utils/logger.js');
+
 function errorMiddleware(error, req, res, next) {
+    // Extract properties from the error object
     let { status = 500, message, data } = error;
 
-    console.log(`[Error] ${error}`);
+    // Logging improve with winston
+    winston.error(`[Error] Status: ${status}, Message: ${message}, Data: ${JSON.stringify(data) || 'N/A'}`);
 
-    // If status code is 500 - change the message to Internal server error
-    message = status === 500 || !message ? 'Internal server error' : message;
+    // Handling of unknown errors
+    status = Number.isInteger(status) ? status : 500;
+    message = message || 'Internal server error';
 
-    error = {
+     // Consistent structure of the error object
+    const errorResponse = {
         type: 'error',
         status,
         message,
-        ...(data) && data
-    }
-    res.status(status).send({response:false, error});
+        data: data || null
+    };
+
+      // Send the response with the structure of the error object
+    res.status(status).send({ response: false, error: errorResponse });
 }
 
 module.exports = errorMiddleware;
-/*
-{
-    type: 'error',
-    status: 404,
-    message: 'Not Found'
-    data: {...} // optional
-}
-*/
