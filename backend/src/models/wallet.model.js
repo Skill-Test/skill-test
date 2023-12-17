@@ -3,6 +3,7 @@
 const query = require('../db/db-connection');
 const { multipleColumnSet } = require('../utils/common.utils');
 const Role = require('../utils/userRoles.utils');
+const winston = require('../utils/logger.utils');
 
 class WalletModel {
     tableName = 'wallet';
@@ -20,6 +21,7 @@ class WalletModel {
 
             return await query(sql, [...values]);
         } catch (error) {
+            winston.error(`[WalletModel - find] Error: ${error.message}`);
             return {error:error.sqlMessage}
         }
     }
@@ -34,6 +36,7 @@ class WalletModel {
             
             return result[0];
         } catch (error) {
+            winston.error(`[WalletModel - findOne] Error: ${error.message}`);
             return {error:error.sqlMessage}
         }
     }
@@ -48,6 +51,7 @@ class WalletModel {
 
             return affectedRows;
         } catch (error) {
+            winston.error(`[WalletModel - create] Error: ${error.message}`);
             return {error:error.sqlMessage}
         }
     }
@@ -62,6 +66,7 @@ class WalletModel {
 
             return result;
         } catch(error) {
+            winston.error(`[WalletModel - updtae] Error: ${error.message}`);
             return {error:error.sqlMessage}
         }
     }
@@ -75,6 +80,7 @@ class WalletModel {
 
             return affectedRows;
         } catch (error) {
+            winston.error(`[WalletModel - deleteOne] Error: ${error.message}`);
             return {error:error.sqlMessage}
         }
     }
@@ -92,6 +98,7 @@ class WalletModel {
 
             return await query(sql, [...values]);
         } catch (error) {
+            winston.error(`[WalletModel - delete] Error: ${error.message}`);
             return {error:error.sqlMessage}
         }
     }
