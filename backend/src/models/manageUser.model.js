@@ -15,8 +15,7 @@ class ManageUserModel {
         } catch (error) {
             // Handle error and register in Winston
             winston.error(`[ManageUserModel - find] Error: ${error.message}`);
-            // Throw an exception with a descriptive message on error
-            throw new HttpException(500, 'Internal server error');
+            return {error:error.sqlMessage}
         }
     }
 
@@ -32,8 +31,7 @@ class ManageUserModel {
         } catch (error) {
             // Handle error and register in Winston
             winston.error(`[ManageUserModel - findOne] Error: ${error.message}`);
-            // Throw an exception with a descriptive message on error
-            throw new HttpException(500, 'Internal server error');
+           return {error:error.sqlMessage}
         }
     }
     
@@ -47,8 +45,7 @@ class ManageUserModel {
         } catch (error) {
             // Handle error and register in Winston
             winston.error(`[ManageUserModel - create] Error: ${error.message}`);
-            // Throw an exception with a descriptive message on error
-            throw new HttpException(500, 'Internal server error');
+            return {error:error.sqlMessage}
         }
     }
 
@@ -63,8 +60,7 @@ class ManageUserModel {
         } catch (error) {
             // Handle error and register in Winston
             winston.error(`[ManageUserModel] Update Error: ${error.message}`);
-            // Throw an exception with a descriptive message on error
-            throw new HttpException(500, 'Internal server error');
+            return {error:error.sqlMessage}
         }
     }
 
@@ -80,8 +76,7 @@ class ManageUserModel {
         } catch (error) {
             // Handle error and register in Winston
             winston.error(`[ManageUserModel] Delete Error: ${error.message}`);
-            // Throw an exception with a descriptive message on error
-            throw new HttpException(500, 'Internal server error');
+            return {error:error.sqlMessage}
         }
     }
 }
