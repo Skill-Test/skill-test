@@ -11,38 +11,39 @@ const auth = (...roles) => {
             const bearer = 'Bearer ';
 
             if (!authHeader || !authHeader.startsWith(bearer)) {
-                res.send({response:false, message:'Access denied. No credentials sent!', data:null})
+                 // Change: Use throw to handle errors
+                throw new HttpException(401, 'Access denied. No credentials sent!');
             }
 
             const token = authHeader.replace(bearer, '');
             const secretKey = process.env.SECRET_JWT || "";
 
-            // Verify Token
+            // Change: Use async/await to handle asynchronous operations
             const decoded = jwt.verify(token, secretKey);
             const user = await UserModel.findOne({ id: decoded.user_id });
 
             if (!user) {
-                res.send({response:false, message:'Authentication failed!', data:null})
+                 // Override: Use throw to handle errors
+                throw new HttpException(401, 'Authentication failed!');
             }
 
-            // check if the current user is the owner user
+            // Change: Separate authorization logic
             const ownerAuthorized = req.params.id == user.id;
-            // if the current user is not the owner and
-            // if the user role don't have the permission to do this action.
-            // the user will get this error
-            if (!ownerAuthorized && roles.length && !roles.includes(user.role)) {
-                res.send({response:false, message:'Unauthorized', data:null})
+            const roleAuthorized = roles.length === 0 || roles.includes(user.role);
+
+            if (!ownerAuthorized && !roleAuthorized) {
+                 // Override: Use throw to handle errors
+                throw new HttpException(403, 'Unauthorized');
             }
 
-            // if the user has permissions
+             // Change: Store authenticated user in req.currentUser
             req.currentUser = user;
             next();
-
-        } catch (e) {
-            e.status = 401;
-            next(e);
+        } catch (error) {
+            // Swap: Pass error to the next error handling middleware
+            next(error);
         }
-    }
-}
+    };
+};
 
 module.exports = auth;
