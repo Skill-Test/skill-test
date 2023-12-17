@@ -3,10 +3,12 @@ const query = require('../db/db-connection');
 const { multipleColumnSet } = require('../utils/common.utils');
 const Role = require('../utils/userRoles.utils');
 const HttpException = require('../utils/HttpException.utils');
+const winston = require('../utils/logger.utils');
+
 class UserModel {
     tableName = 'user';
 
-    find = async (params = {}) => { 
+    find = async (params = {}) => {
         try {
             let sql = `SELECT * FROM ${this.tableName}`;
 
@@ -18,6 +20,7 @@ class UserModel {
             sql += ` WHERE ${columnSet}`;
             return await query(sql, [...values]);
         } catch(error) {
+            winston.error(`[UserModel - find] Error: ${error.message}`);
             return {error:error.sqlMessage};
         }
     }
@@ -33,6 +36,7 @@ class UserModel {
             // return back the first row (user)
             return result[0];
         } catch(error) {
+            winston.error(`[UserModel - findOne] Error: ${error.message}`);
             return {error:error.sqlMessage};
         }
     }
@@ -47,6 +51,7 @@ class UserModel {
 
             return affectedRows;
         } catch (error) {
+            winston.error(`[UserModel - create] Error: ${error.message}`);
             return {error:error.sqlMessage};
         }
     }
@@ -61,6 +66,7 @@ class UserModel {
 
             return result;
         } catch(error) {
+            winston.error(`[UserModel - update] Error: ${error.message}`);
             return {error:error.sqlMessage};
         }
     }
@@ -77,6 +83,7 @@ class UserModel {
 
             return affectedRows;
         } catch (error) {
+            winston.error(`[UserModel - delete] Error: ${error.message}`);
             return {error:error.sqlMessage};
         }
     }
