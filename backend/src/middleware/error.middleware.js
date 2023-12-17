@@ -1,4 +1,4 @@
-const winston = require('../utils/logger.js');
+const winston = require('../utils/logger.utils');
 
 function errorMiddleware(error, req, res, next) {
     // Extract properties from the error object
