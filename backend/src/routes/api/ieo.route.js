@@ -6,10 +6,18 @@ const Role = require('../../utils/userRoles.utils');
 const awaitHandlerFactory = require('../../middleware/awaitHandlerFactory.middleware');
 const IEOController = require("../../controllers/ieo.controller.js")
 
-router.post('/create', auth(Role.Super), awaitHandlerFactory(IEOController.createIEO));
-router.patch('/id/:id', auth(Role.Super), awaitHandlerFactory(IEOController.updateIEO));
-router.delete('/id/:id', auth(Role.Super), awaitHandlerFactory(IEOController.deleteIEO));
-router.get('/', awaitHandlerFactory(IEOController.getAllIEO));
-router.get('/id/:id', awaitHandlerFactory(IEOController.getOneIEO));
+router.post('/create',
+            auth(Role.Super),
+            awaitHandlerFactory(IEOController.createIEO));
+router.patch('/id/:id',
+             auth(Role.Super),
+             awaitHandlerFactory(IEOController.updateIEO));
+router.delete('/id/:id',
+              auth(Role.Super),
+              awaitHandlerFactory(IEOController.deleteIEO));
+router.get('/',
+           awaitHandlerFactory(IEOController.getAllIEO));
+router.get('/id/:id',
+           awaitHandlerFactory(IEOController.getOneIEO));
 
 module.exports = router
