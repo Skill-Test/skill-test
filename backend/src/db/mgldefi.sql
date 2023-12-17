@@ -160,7 +160,7 @@ CREATE TABLE `user` (
   `email` varchar(50) NOT NULL,
   `password` varchar(100) NOT NULL,
   `country` varchar(30) NOT NULL,
-  `invite_code` int(11) NOT NULL,
+  `invite_code` int(11) NULL,
   `role` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
