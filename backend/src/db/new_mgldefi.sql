@@ -236,7 +236,7 @@ CREATE TABLE `user` (
   `email` varchar(50) NOT NULL,
   `password` varchar(100) NOT NULL,
   `country` varchar(30) NOT NULL,
-  `invite_code` int NOT NULL,
+  `invite_code` int NULL,
   `role` varchar(10) NOT NULL,
   `get_bnb` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
