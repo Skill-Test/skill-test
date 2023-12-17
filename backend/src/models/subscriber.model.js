@@ -4,10 +4,12 @@ const query = require('../db/db-connection');
 const { multipleColumnSet } = require('../utils/common.utils');
 const Role = require('../utils/userRoles.utils');
 const HttpException = require('../utils/HttpException.utils');
+const winston = require('../utils/logger');
+
 class SubscriberModel {
     tableName = 'subscriber';
 
-    find = async (params = {}) => { 
+    find = async (params = {}) => {
         try {
             let sql = `SELECT * FROM ${this.tableName}`;
 
@@ -15,31 +17,33 @@ class SubscriberModel {
                 return await query(sql);
             }
 
-            const { columnSet, values } = multipleColumnSet(params)
+            const { columnSet, values } = multipleColumnSet(params);
             sql += ` WHERE ${columnSet}`;
 
             return await query(sql, [...values]);
-        } catch(error) {
-            throw new HttpException(error);
+        } catch (error) {
+            winston.error(`[SubscriberModel - find] Error: ${error.message}`);
+            throw new HttpException(500, 'Internal Server Error');
         }
     }
 
     findOne = async (params) => {
         try {
-            const { columnSet, values } = multipleColumnSet(params)
-            
+            const { columnSet, values } = multipleColumnSet(params);
+
             const sql = `SELECT * FROM ${this.tableName}
             WHERE ${columnSet}`;
             const result = await query(sql, [...values]);
-            
+
             // return back the first row (user)
             return result[0];
-        } catch(error) {
-            throw new HttpException(error);
+        } catch (error) {
+            winston.error(`[SubscriberModel - findOne] Error: ${error.message}`);
+            throw new HttpException(500, 'Internal Server Error');
         }
     }
 
-    create = async ({ email}) => {
+    create = async ({ email }) => {
         try {
             const sql = `INSERT INTO ${this.tableName}
             (email) VALUES (?)`;
@@ -48,7 +52,8 @@ class SubscriberModel {
 
             return affectedRows;
         } catch (error) {
-            throw new HttpException(error);
+            winston.error(`[SubscriberModel - create] Error: ${error.message}`);
+            throw new HttpException(500, 'Internal Server Error');
         }
     }
 }
