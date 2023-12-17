@@ -1,6 +1,7 @@
 const query = require('../db/db-connection');
 const { multipleColumnSet } = require('../utils/common.utils');
 const HttpException = require('../utils/HttpException.utils');
+const winston = require('../utils/logger.js');
 
 class EmailVerifyModel {
     tableName = 'email_verify';
@@ -21,6 +22,8 @@ class EmailVerifyModel {
 
             return result[0];
         } catch (error) {
+            // Handle error and register in Winston
+            winston.error(`[IEOModel - findOne] Error: ${error.message}`);
             // Throw an exception with a descriptive message on error
             throw new HttpException(500, 'Error fetching data from the database', error);
         }
@@ -52,6 +55,8 @@ class EmailVerifyModel {
             return result;
         } catch (error) {
             // Throw an exception with a descriptive message on error
+            winston.error(`[IEOModel - create] Error: ${error.message}`);
+            // Throw an exception with a descriptive message on error
             throw new HttpException(500, 'Error updating the record', error);
         }
     }
@@ -69,6 +74,8 @@ class EmailVerifyModel {
 
             return affectedRows;
         } catch (error) {
+            // Throw an exception with a descriptive message on error
+            winston.error(`[IEOModel - delete] Error: ${error.message}`);
             // Throw an exception with a descriptive message on error
             throw new HttpException(500, 'Error deleting the record', error);
         }
