@@ -3,6 +3,7 @@
 const query = require('../db/db-connection');
 const { multipleColumnSet } = require('../utils/common.utils');
 const Role = require('../utils/userRoles.utils');
+const winston = require('../utils/logger.utils');
 
 class TransactionModel {
     tableName = 'transaction';
@@ -34,6 +35,7 @@ class TransactionModel {
             }
             return await query(sql, [...values]);
         } catch(error) {
+            winston.error(`[TransactionModel - findMore] Error: ${error.message}`);
             return []
         }
     }
@@ -68,6 +70,7 @@ class TransactionModel {
 
             return result;
         } catch(error) {
+            winston.error(`[TransactionModel - update] Error: ${error.message}`);
             throw new HttpException(error);
         }
     }
