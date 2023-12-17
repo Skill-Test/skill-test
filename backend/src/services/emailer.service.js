@@ -1,5 +1,7 @@
 const nodemailer = require('nodemailer');
 const i18n = require('i18n')
+const winston = require('../utils/logger.utils');
+
 i18n.configure({
     locales: ['En', 'Mn'],
     directory: __dirname + '/locales',
@@ -10,8 +12,8 @@ module.exports = {
     deliverEmail: function (dest, subject, body) {
         var transport = nodemailer.createTransport({
             service: process.env.EMAIL_SERVICE,
-            //host: process.env.EMAIL_HOST,
-            //port: Number(process.env.EMAIL_PORT),
+            host: process.env.EMAIL_HOST,
+            port: Number(process.env.EMAIL_PORT),
             auth: {
                 //user: process.env.EMAIL_USER,
                 user: process.env.EMAIL,
@@ -28,6 +30,7 @@ module.exports = {
     
         transport.sendMail(mailOptions, function(error, info){
             if (error) {
+                winston.error(`Failed to send email: ${error.message}`);
                 console.log(error);
             } else {
                 console.log('Email sent: ' + info.response);
