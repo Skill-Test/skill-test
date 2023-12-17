@@ -14,7 +14,7 @@ class ManageUserModel {
             return await query(sql);
         } catch (error) {
             // Handle error and register in Winston
-            winston.error(`[ManageUserModel] Find Error: ${error.message}`);
+            winston.error(`[ManageUserModel - find] Error: ${error.message}`);
             // Throw an exception with a descriptive message on error
             throw new HttpException(500, 'Internal server error');
         }
@@ -31,7 +31,7 @@ class ManageUserModel {
             return result[0];
         } catch (error) {
             // Handle error and register in Winston
-            winston.error(`[ManageUserModel] FindOne Error: ${error.message}`);
+            winston.error(`[ManageUserModel - findOne] Error: ${error.message}`);
             // Throw an exception with a descriptive message on error
             throw new HttpException(500, 'Internal server error');
         }
@@ -46,7 +46,7 @@ class ManageUserModel {
             return affectedRows;
         } catch (error) {
             // Handle error and register in Winston
-            winston.error(`[ManageUserModel] Create Error: ${error.message}`);
+            winston.error(`[ManageUserModel - create] Error: ${error.message}`);
             // Throw an exception with a descriptive message on error
             throw new HttpException(500, 'Internal server error');
         }
