@@ -2,6 +2,8 @@
 
 const query = require('../db/db-connection');
 const { multipleColumnSet } = require('../utils/common.utils');
+const winston = require('../utils/logger.js');
+
 class TopTokenModel {
     tableName = 'top_tokens';
 
@@ -17,6 +19,7 @@ class TopTokenModel {
             sql += ` WHERE ${columnSet}`;
             return await query(sql, [...values]);
         } catch(error) {
+            winston.error(`[TopTokenModel - find] Error: ${error.message}`);
             return {error:error.sqlMessage};
         }
     }
@@ -30,6 +33,7 @@ class TopTokenModel {
 
             return affectedRows;
         } catch (error) {
+            winston.error(`[TopTokenModel - create] Error: ${error.message}`);
             return {error:error.sqlMessage};
         }
     }
@@ -44,6 +48,7 @@ class TopTokenModel {
 
             return result;
         } catch(error) {
+            winston.error(`[TopTokenModel - update] Error: ${error.message}`);
             return {error:error.sqlMessage};
         }
     }
