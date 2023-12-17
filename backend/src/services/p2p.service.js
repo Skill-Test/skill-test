@@ -1,6 +1,7 @@
 const P2PModel = require("../models/p2p.model");
 const { validationResult } = require('express-validator');
 const fs = require('fs');
+const winston = require('../utils/logger.utils');
 class P2PService {
     constructor() {
 
@@ -32,6 +33,7 @@ class P2PService {
             }
             return {response: true, message:"Success", data: null}
         } catch (error) {
+            winston.error(`[P2PService - createP2P] Error: ${error.message}`);
             return {response:false, message:error, data:null}
         }
     }
@@ -65,6 +67,7 @@ class P2PService {
             }
             return {response:true, message:"Success", data:null};
         } catch (error) {
+            winston.error(`[P2PService - updateP2P] Error: ${error.message}`);
             return {response:false, message:error, data:null};
         }
     }
@@ -91,6 +94,7 @@ class P2PService {
             })
             return {response:true, message:"Success", data: newResult};
         } catch (error) {
+            winston.error(`[P2PService - getAllP2P] Error: ${error.message}`);
             return {response:false, message:error, data:null};
         }
     }
@@ -105,6 +109,7 @@ class P2PService {
             result.profile_pic = `data:image/${arr[arr.length - 1]};base64,` + fs.readFileSync(result.profile_pic, 'base64');
             return {response:true, message:"Success", data:result};
         } catch (error) {
+            winston.error(`[P2PService - getOneP2P] Error: ${error.message}`);
             return {response:false, message:error, data:null}
         }
     }
@@ -121,6 +126,7 @@ class P2PService {
                 return {response: false, message:"That P2P does not exist.", data:null};
             }
         } catch (error) {
+            winston.error(`[P2PService - deleteP2P] Error: ${error.message}`)
             return {response:false, message:error.message, data:null};
         }
     }
@@ -129,6 +135,7 @@ class P2PService {
         try {
             return {response:false, message:'success', data: imageInfo.file.path};
         } catch (error) {
+            winston.error(`[P2PService - uploadImage] Error: ${error.message}`)
             return {response:false, message:error.message, data:null};
         }
     }
