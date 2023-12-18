@@ -71,9 +71,9 @@ exports.createUserSchema = [
             next()
         },
     body('invite_code')
-        .optional()
+        .optional() //CHANGE: the field must be optional since the frontend indicates that it is optional
         .isNumeric()
-        .withMessage('Email verification code must contain numeric characters'),
+        .withMessage('invite code must contain numeric characters'), //CHANGE: the text was wrong
         function(req,res,next) { 
             var errorValidation = validationResult(req);
             if ( errorValidation.errors.length !== 0 ) {
@@ -152,9 +152,9 @@ exports.updateUserSchema = [
             next()
         },
     body('invite_code')
-        .optional()
+        .optional() //CHANGE: the field must be optional since the frontend indicates that it is optional
         .isNumeric()
-        .withMessage('Email verification code must contain numeric characters'),
+        .withMessage('invite code must contain numeric characters'), //CHANGE: the text was wrong
         function(req,res,next) { 
             var errorValidation = validationResult(req);
             if ( errorValidation.errors.length !== 0 ) {
