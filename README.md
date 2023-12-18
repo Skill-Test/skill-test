@@ -1,10 +1,10 @@
-#SkillTest
+# SkillTest
 
-##Description
+## Description
 
 The user is having problems registering and accessing his profile.
 
-##Changes/improvements:
+## Changes/improvements:
 
 Below I write all changes and implement code enhancements that could have an impact on user registration, operations having to do with wallet creation, user profile access or database queries.
 
