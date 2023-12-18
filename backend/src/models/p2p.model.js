@@ -19,6 +19,7 @@ class P2PModel {
             sql += ` WHERE ${columnSet}`;
             return await query(sql, [...values]);
         } catch(error) {
+            // Handle error and register in Winston
             winston.error(`[P2PModel - find] Error: ${error.message}`);
             return {error:error.sqlMessage}
         }
@@ -33,6 +34,7 @@ class P2PModel {
 
             return result[0];
         } catch(error) {
+            // Handle error and register in Winston
             winston.error(`[P2PModel - findOne] Error: ${error.message}`);
             return {error:error.sqlMessage}
         }
@@ -47,6 +49,7 @@ class P2PModel {
 
             return affectedRows;
         } catch (error) {
+            // Handle error and register in Winston
             winston.error(`[P2PModel - create] Error: ${error.message}`);
             return {error:error.sqlMessage}
         }
@@ -62,6 +65,7 @@ class P2PModel {
 
             return result;
         } catch(error) {
+            // Handle error and register in Winston
             winston.error(`[P2PModel - update] Error: ${error.message}`);
             return {error:error.sqlMessage}
         }
@@ -77,6 +81,7 @@ class P2PModel {
 
             return affectedRows;
         } catch (error) {
+            // Handle error and register in Winston
             winston.error(`[P2PModel - delete] Error: ${error.message}`);
             return {error:error.sqlMessage}
         }
