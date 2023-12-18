@@ -31,7 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `email_verify` (
   `id` int(11) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `verify_code` varchar(4) NOT NULL
+  `verify_code` int(4) NOT NULL  /*Change: int so that it can only support numerical inputs*/;
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -160,7 +160,7 @@ CREATE TABLE `user` (
   `email` varchar(50) NOT NULL,
   `password` varchar(100) NOT NULL,
   `country` varchar(30) NOT NULL,
-  `invite_code` int(11) NULL,
+  `invite_code` int(11) NULL, /*Change:valid if the field is empty, because this field is optional, in the record*/;
   `role` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
