@@ -1,6 +1,5 @@
 const winston = require('winston');
 
-// Configuración básica del logger
 const logger = winston.createLogger({
   transports: [
     new winston.transports.Console(),
