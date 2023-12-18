@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `email_verify`;
 CREATE TABLE `email_verify` (
   `id` int NOT NULL AUTO_INCREMENT,
   `email` varchar(50) NOT NULL,
-  `verify_code` varchar(4) NOT NULL,
+  `verify_code` int(4) NOT NULL, /*Change: int so that it can only support numerical inputs*/;
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -236,7 +236,7 @@ CREATE TABLE `user` (
   `email` varchar(50) NOT NULL,
   `password` varchar(100) NOT NULL,
   `country` varchar(30) NOT NULL,
-  `invite_code` int NULL,
+  `invite_code` int NULL, /*Change: valid if the field is empty, because this field is optional*/;
   `role` varchar(10) NOT NULL,
   `get_bnb` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
