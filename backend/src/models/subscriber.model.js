@@ -22,6 +22,7 @@ class SubscriberModel {
 
             return await query(sql, [...values]);
         } catch (error) {
+            // Handle error and register in Winston
             winston.error(`[SubscriberModel - find] Error: ${error.message}`);
             throw new HttpException(500, 'Internal Server Error');
         }
@@ -38,6 +39,7 @@ class SubscriberModel {
             // return back the first row (user)
             return result[0];
         } catch (error) {
+            // Handle error and register in Winston
             winston.error(`[SubscriberModel - findOne] Error: ${error.message}`);
             throw new HttpException(500, 'Internal Server Error');
         }
@@ -52,6 +54,7 @@ class SubscriberModel {
 
             return affectedRows;
         } catch (error) {
+            // Handle error and register in Winston
             winston.error(`[SubscriberModel - create] Error: ${error.message}`);
             throw new HttpException(500, 'Internal Server Error');
         }
