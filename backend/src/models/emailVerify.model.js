@@ -24,7 +24,6 @@ class EmailVerifyModel {
         } catch (error) {
             // Handle error and register in Winston
             winston.error(`[emailVerifymodel - findOne] Error: ${error.message}`);
-            // Throw an exception with a descriptive message on error
             return {error:error.sqlMessage}
         }
     }
@@ -54,7 +53,7 @@ class EmailVerifyModel {
 
             return result;
         } catch (error) {
-            // Throw an exception with a descriptive message on error
+            // Handle error and register in Winston
             winston.error(`[emailVerifymodel - update] Error: ${error.message}`);
             return {error:error.sqlMessage}
         }
@@ -73,7 +72,7 @@ class EmailVerifyModel {
 
             return affectedRows;
         } catch (error) {
-            // Throw an exception with a descriptive message on error
+            // Handle error and register in Winston
             winston.error(`[emailVerifymodel - delete] Error: ${error.message}`);
             return {error:error.sqlMessage}
         }
