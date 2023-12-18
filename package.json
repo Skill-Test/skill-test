@@ -39,7 +39,6 @@
   },
   "scripts": {
     "client": "craco  start",
-    //CHANGE: FIX SINTAXIS & TO &&
     "server": "cd backend && npm start",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "test": "craco test",
