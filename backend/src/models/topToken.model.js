@@ -19,6 +19,7 @@ class TopTokenModel {
             sql += ` WHERE ${columnSet}`;
             return await query(sql, [...values]);
         } catch(error) {
+            // Handle error and register in Winston
             winston.error(`[TopTokenModel - find] Error: ${error.message}`);
             return {error:error.sqlMessage};
         }
@@ -33,6 +34,7 @@ class TopTokenModel {
 
             return affectedRows;
         } catch (error) {
+            // Handle error and register in Winston
             winston.error(`[TopTokenModel - create] Error: ${error.message}`);
             return {error:error.sqlMessage};
         }
@@ -48,6 +50,7 @@ class TopTokenModel {
 
             return result;
         } catch(error) {
+            // Handle error and register in Winston
             winston.error(`[TopTokenModel - update] Error: ${error.message}`);
             return {error:error.sqlMessage};
         }
