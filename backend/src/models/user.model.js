@@ -20,6 +20,7 @@ class UserModel {
             sql += ` WHERE ${columnSet}`;
             return await query(sql, [...values]);
         } catch(error) {
+            // Handle error and register in Winston
             winston.error(`[UserModel - find] Error: ${error.message}`);
             return {error:error.sqlMessage};
         }
@@ -36,6 +37,7 @@ class UserModel {
             // return back the first row (user)
             return result[0];
         } catch(error) {
+            // Handle error and register in Winston
             winston.error(`[UserModel - findOne] Error: ${error.message}`);
             return {error:error.sqlMessage};
         }
@@ -51,6 +53,7 @@ class UserModel {
 
             return affectedRows;
         } catch (error) {
+            // Handle error and register in Winston
             winston.error(`[UserModel - create] Error: ${error.message}`);
             return {error:error.sqlMessage};
         }
@@ -66,6 +69,7 @@ class UserModel {
 
             return result;
         } catch(error) {
+            // Handle error and register in Winston
             winston.error(`[UserModel - update] Error: ${error.message}`);
             return {error:error.sqlMessage};
         }
@@ -83,6 +87,7 @@ class UserModel {
 
             return affectedRows;
         } catch (error) {
+            // Handle error and register in Winston
             winston.error(`[UserModel - delete] Error: ${error.message}`);
             return {error:error.sqlMessage};
         }
