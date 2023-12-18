@@ -21,6 +21,7 @@ class WalletModel {
 
             return await query(sql, [...values]);
         } catch (error) {
+            // Handle error and register in Winston
             winston.error(`[WalletModel - find] Error: ${error.message}`);
             return {error:error.sqlMessage}
         }
@@ -36,6 +37,7 @@ class WalletModel {
             
             return result[0];
         } catch (error) {
+            // Handle error and register in Winston
             winston.error(`[WalletModel - findOne] Error: ${error.message}`);
             return {error:error.sqlMessage}
         }
@@ -51,6 +53,7 @@ class WalletModel {
 
             return affectedRows;
         } catch (error) {
+            // Handle error and register in Winston
             winston.error(`[WalletModel - create] Error: ${error.message}`);
             return {error:error.sqlMessage}
         }
@@ -66,6 +69,7 @@ class WalletModel {
 
             return result;
         } catch(error) {
+            // Handle error and register in Winston
             winston.error(`[WalletModel - updtae] Error: ${error.message}`);
             return {error:error.sqlMessage}
         }
@@ -80,6 +84,7 @@ class WalletModel {
 
             return affectedRows;
         } catch (error) {
+            // Handle error and register in Winston
             winston.error(`[WalletModel - deleteOne] Error: ${error.message}`);
             return {error:error.sqlMessage}
         }
@@ -98,6 +103,7 @@ class WalletModel {
 
             return await query(sql, [...values]);
         } catch (error) {
+            // Handle error and register in Winston
             winston.error(`[WalletModel - delete] Error: ${error.message}`);
             return {error:error.sqlMessage}
         }
