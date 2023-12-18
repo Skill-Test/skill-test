@@ -9,16 +9,23 @@ class TransactionModel {
     tableName = 'transaction';
 
     find = async (params = {}) => {
-        let sql = `SELECT * FROM ${this.tableName}`;
-
-        if (!Object.keys(params).length) {
-            return await query(sql);
+        //Change: add try/catch
+         try {
+            let sql = `SELECT * FROM ${this.tableName}`;
+    
+            if (!Object.keys(params).length) {
+                return await query(sql);
+            }
+    
+            const { columnSet, values } = multipleColumnSet(params)
+            sql += ` WHERE ${columnSet}`;
+    
+            return await query(sql, [...values]);
+        } catch(error) {
+            // Handle error and register in Winston
+            winston.error(`[TransactionModel - find] Error: ${error.message}`);
+            return []
         }
-
-        const { columnSet, values } = multipleColumnSet(params)
-        sql += ` WHERE ${columnSet}`;
-
-        return await query(sql, [...values]);
     }
     
     findMore = async (params = {}) => { 
@@ -35,29 +42,44 @@ class TransactionModel {
             }
             return await query(sql, [...values]);
         } catch(error) {
+            // Handle error and register in Winston
             winston.error(`[TransactionModel - findMore] Error: ${error.message}`);
             return []
         }
     }
 
     findOne = async (params) => {
-        const { columnSet, values } = multipleColumnSet(params)
-        
-        const sql = `SELECT * FROM ${this.tableName}
-        WHERE ${columnSet}`;
-        const result = await query(sql, [...values]);
-        
-        return result[0];
+        //Change: add try/catch
+        try {  
+            const { columnSet, values } = multipleColumnSet(params)
+            
+            const sql = `SELECT * FROM ${this.tableName}
+            WHERE ${columnSet}`;
+            const result = await query(sql, [...values]);
+            
+            return result[0];
+        } catch(error) {
+            // Handle error and register in Winston
+            winston.error(`[TransactionModel - findOne] Error: ${error.message}`);
+            return []
+        }
     }
 
     create = async ({ user_id, hash, from_id, to_id, token, amount, network, to_admin}) => {
-        const sql = `INSERT INTO ${this.tableName}
-        ( user_id, hash, from_id, to_id, token, amount, network, to_admin) VALUES (?,?,?,?,?,?,?,?)`;
-
-        const result = await query(sql, [ user_id, hash, from_id, to_id, token, amount, network, to_admin]);
-        const affectedRows = result ? result.affectedRows : 0;
-
-        return affectedRows;
+        //Change: add try/catch
+        try {
+            const sql = `INSERT INTO ${this.tableName}
+            ( user_id, hash, from_id, to_id, token, amount, network, to_admin) VALUES (?,?,?,?,?,?,?,?)`;
+    
+            const result = await query(sql, [ user_id, hash, from_id, to_id, token, amount, network, to_admin]);
+            const affectedRows = result ? result.affectedRows : 0;
+    
+            return affectedRows;
+        } catch(error) {
+            // Handle error and register in Winston
+            winston.error(`[TransactionModel - create] Error: ${error.message}`);
+            return []
+        }
     }
 
     update = async (params, id) => {
@@ -70,31 +92,45 @@ class TransactionModel {
 
             return result;
         } catch(error) {
+            // Handle error and register in Winston
             winston.error(`[TransactionModel - update] Error: ${error.message}`);
             throw new HttpException(error);
         }
     }
     
     deleteOne = async (key) => {
-        const sql = `DELETE FROM ${this.tableName}
-        WHERE key = ?`;
-        const result = await query(sql, [key]);
-        const affectedRows = result ? result.affectedRows : 0;
-
-        return affectedRows;
+        //Change: add try/catch
+        try {
+            const sql = `DELETE FROM ${this.tableName}
+            WHERE key = ?`;
+            const result = await query(sql, [key]);
+            const affectedRows = result ? result.affectedRows : 0;
+    
+            return affectedRows;
+        } catch(error) {
+            // Handle error and register in Winston
+            winston.error(`[TransactionModel - deleteOne] Error: ${error.message}`);
+            return []
+        }
     }
 
     delete = async (params = {}) => {
-        let sql = `DELETE * FROM ${this.tableName}`;
-
-        if (!Object.keys(params).length) {
-            return await query(sql);
+         try {
+            let sql = `DELETE * FROM ${this.tableName}`;
+    
+            if (!Object.keys(params).length) {
+                return await query(sql);
+            }
+    
+            const { columnSet, values } = multipleColumnSet(params)
+            sql += ` WHERE ${columnSet}`;
+    
+            return await query(sql, [...values]);
+        } catch(error) {
+            // Handle error and register in Winston
+            winston.error(`[TransactionModel - delete] Error: ${error.message}`);
+            return []
         }
-
-        const { columnSet, values } = multipleColumnSet(params)
-        sql += ` WHERE ${columnSet}`;
-
-        return await query(sql, [...values]);
     }
 }
 
